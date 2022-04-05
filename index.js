@@ -83,11 +83,24 @@ const questions = [
                 }
             }
         },
+        {
+            type: 'input',
+            name: 'username',
+            message: 'Enter your GitHub username.',
+            validate: projectUsername => {
+                if (projectUsername) {
+                    return true;
+                } else {
+                    console.log('Please enter your GitHub username!')
+                    return false;
+                }
+            }
+        },
         //github : questions
         {
             type: 'input',
             name: 'github',
-            message: 'Enter your GitHub Username.',
+            message: 'Enter your GitHub URL.',
             validate: projectUsage => {
                 if (projectUsage) {
                     return true;
@@ -101,20 +114,12 @@ const questions = [
         {
             type: 'input',
             name: 'email',
-            message: 'Enter an email for your project.',
-            validate: projectUsage => {
-                if (projectUsage) {
-                    return true;
-                } else {
-                    console.log('Please enter a valid email for your project!')
-                    return false;
-                }
-            }
+            message: 'Would you like to enter an email for other to contact you?',
         },
     ])
         .then(answers => {
-            //console.log(answers)
-            fs.writeFile('README.md', generateMarkdown(answers), (err) => {
+            console.log(answers)
+            fs.writeFile('./dist/README.md', generateMarkdown(answers), (err) => {
                 if (err) {
                     console.log(err)
                 } else {
