@@ -4,7 +4,7 @@ const fs = require('fs')
 const generateMarkdown = require('./utils/generateMarkdown')
 
 // TODO: Create an array of questions for user input
-const questions = [
+const questions = () => {
     inquirer.prompt([
         //title
         {
@@ -114,30 +114,20 @@ const questions = [
         {
             type: 'input',
             name: 'email',
-            message: 'Would you like to enter an email for other to contact you?',
+            message: 'Enter an email for others to contact you.',
         },
     ])
-        .then(answers => {
-            console.log(answers)
-            fs.writeFile('./dist/README.md', generateMarkdown(answers), (err) => {
+        .then(data => {
+            console.log(data)
+            fs.writeFile('./dist/README.md', generateMarkdown(data), (err) => {
                 if (err) {
                     console.log(err)
                 } else {
                     console.log('success')
                 }
-            })
+            });
         })
-];
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-
-}
-
-// TODO: Create a function to initialize app
-function init() {
-
-}
+    };
 
 // Function call to initialize app
-init();
+questions();
